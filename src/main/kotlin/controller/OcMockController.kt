@@ -43,7 +43,7 @@ class OcMockController {
         confirmButton.setOnMouseClicked {
             when {
                 address.text.isEmpty() -> {
-                    allerMessage()
+                    alertMessage()
                 }
                 else ->
                     println("------ ${address.text} ---- ${dispatchCode.text} -- ${notes.text}")
@@ -67,7 +67,7 @@ class OcMockController {
         }
     }
 
-    private fun allerMessage() {
+    private fun alertMessage() {
         val alert = Alert(ERROR, "Inserire indirizzo!", ButtonType.CANCEL)
         alert.showAndWait()
     }

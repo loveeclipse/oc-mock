@@ -1,10 +1,17 @@
 language: java
-
 jdk:
 - oraclejdk8
-
 before_install:
 - chmod +x gradlew
-
 script:
 - "./gradlew clean build -P=travis"
+deploy:
+  provider: releases
+  api_key:
+    secure: qzDIUukObE0jp8eFbgYHFgZcLsDDheuGmhPbjRIifUT1LARHAzIkVoVNQ1EMD+9Pvxfhvh+A44hgSM+HKKW4T324LBcHMyFXiIiO8AmHHhr9345nGGDUyGjyrENxZ1cBlshYb/87DrldbMqdltWsy80c0erpWfLSuikQmN9Wpb4+e+MD4RT7bEWmO9V1YWgmioXymbGrCAgV7Id0qo5VLPerPuHCH6vSwnF+wsHrF3q3EG3msI1FPcNIpUSqPaa18+MBrtLc+4koA4Mj+1jshw1eq8m8P31JEnm5/60H9458oSW+C3Pi/msn+rM+OuZe4U0fnZVAjEKmlrpvZmiMHuXxakBnt6SLn4OkiniQwM81bWO2tRYookBjnuHGgC6mblboknM8ORpVtehWZqYPbbAUok7uj/adcioWUlPXg9KqbqFlPR+DNq3mSW1JwYfBnuNOmRy3BHBEg+U/tn4sCoju+EtyvWIGjk2gu+Hle8F+q6JJjaym/OjEs73is05SgNfGS5QuNgPS+LhSjCl93KDF5v6+1EfmkT4MtW8nN+xng/+SnIPuGKu+i/2u28EAosS2H2NBRaJY36sDY+QCo83Pz45zszuphAblYzI5iRQv244ZetNyR1IGxRW0jsNaUlzasF93JN94ksqWYS+8Ce9kqixyOPLjKW7tQjklZvw=
+  skip_cleanup: true
+    file_glob: true
+    file: distibution/*
+    on:
+      repo: loveeclipse/pc-18-preh-mock
+      tags: true

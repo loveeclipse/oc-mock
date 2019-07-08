@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OcMock">
+   <children>
+       <Text fill="#0b0be1" layoutX="207.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OC desktop" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font></Text>
+       <Label layoutX="69.0" layoutY="83.0" text="Indirizzo" />
+       <TextField layoutX="213.0" layoutY="135.0" prefHeight="31.0" prefWidth="341.0" />
+       <Label layoutX="66.0" layoutY="140.0" text="Codice invio" />
+       <TextField layoutX="213.0" layoutY="78.0" prefHeight="31.0" prefWidth="341.0" />
+       <Label layoutX="69.0" layoutY="189.0" text="Dinamica" />
+       <ComboBox layoutX="213.0" layoutY="184.0" prefHeight="31.0" prefWidth="341.0" />
+       <CheckBox layoutX="347.0" layoutY="230.0" mnemonicParsing="false" text="Secondario" />
+       <CheckBox layoutX="213.0" layoutY="230.0" mnemonicParsing="false" text="Primario" />
+       <Label layoutX="69.0" layoutY="277.0" text="Numero pazienti" />
+       <Spinner layoutX="213.0" layoutY="272.0" prefHeight="31.0" prefWidth="341.0" />
+       <Label layoutX="69.0" layoutY="342.0" text="Note" />
+       <TextArea layoutX="213.0" layoutY="313.0" prefHeight="78.0" prefWidth="341.0" />
+       <Button layoutX="262.0" layoutY="405.0" mnemonicParsing="false" text="Conferma" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="405.0" />
+   </children>
+</AnchorPane>

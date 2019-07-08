@@ -1,6 +1,6 @@
 package utils
 
-object ocWindow{
+object ocWindow {
         const val PATH: String = "oc_mock.fxml"
         const val TITLE: String = "Operations center"
         const val WIDTH: Int = 600

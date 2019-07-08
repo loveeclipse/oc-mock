@@ -1,6 +1,7 @@
 package controller
 
 import io.vertx.core.Vertx
+import io.vertx.core.json.JsonObject
 import io.vertx.ext.web.client.WebClient
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
@@ -37,9 +38,11 @@ class OcMockController {
     private val radioButtonGroup = ToggleGroup()
     private lateinit var ocCall: LocalDateTime
     private var client = WebClient.create(Vertx.vertx())
+    private var isFirst = true
 
     fun initialization() {
-        dynamic.items.addAll(" ", "Pedone investito", "Ciclista investito", "Motociclista", "Macchina-Moto", "Macchina-Macchina")
+        dynamic.items.addAll(" ", "Pedone investito", "Ciclista investito", "Motociclista", "Macchina-Moto",
+                "Macchina-Macchina")
         hotelBravoChopper.isSelected = true
         radioButtonGroup.toggles.addAll(primary, secondary)
         primary.isSelected = true
@@ -50,35 +53,42 @@ class OcMockController {
         captureText(notes)
         confirmButton.setOnMouseClicked {
             when {
-                address.text.isEmpty() -> {
+                address.text.isEmpty() ->
                     alertMessage()
-                }
+                isFirst ->
+                    client
+                            .get(PORT, HOST, DISCOVERY_GET_SERVICE)
+                            .send { findServiceLocation ->
+                                if (findServiceLocation.succeeded()) {
+                                    val response = findServiceLocation.result().body()
+                                    val document = getData()
+                                    client
+                                            .patchAbs(response.toString())
+                                            .sendJsonObject(document) { insertOperation ->
+                                                when {
+                                                    insertOperation.succeeded() ->
+                                                        isFirst = false
+                                                }
+                                            }
+                                }
+                            }
                 else ->
                     client
                             .get(PORT, HOST, DISCOVERY_GET_SERVICE)
                             .send { findServiceLocation ->
-                                when {
-                                    findServiceLocation.succeeded() -> {
-                                        // Obtain response
-                                        val response = findServiceLocation.result().body()
-                                        println("Received response  $response")
-                                        val document = json { obj(
-                                                "callTime" to ocCall.toString(),
-                                                "address" to address.text
-                                        ) }
-                                        client
-                                                .postAbs(response.toString())
-                                                .sendJsonObject(document) { insertOperation ->
-                                                    when {
-                                                        insertOperation.succeeded() ->
-                                                            println("Received response")
-                                                        else ->
-                                                            println("cazzo: ${insertOperation.cause()}")
-                                                    }
+                                if (findServiceLocation.succeeded()) {
+                                    val response = findServiceLocation.result().body()
+                                    val document = getData()
+                                    client
+                                            .postAbs(response.toString())
+                                            .sendJsonObject(document) { insertOperation ->
+                                                when {
+                                                    insertOperation.succeeded() ->
+                                                        println("OK")
+                                                    else ->
+                                                        println("Error: ${insertOperation.cause()}")
                                                 }
-                                    }
-                                    else ->
-                                    println("Something went wrong ${findServiceLocation.cause()}")
+                                            }
                                 }
                             }
             }
@@ -86,9 +96,9 @@ class OcMockController {
     }
 
     private fun getDatetime(): LocalDateTime {
-        println(LocalDateTime.now())
         return LocalDateTime.now()
     }
+
     @FXML private fun captureText(textField: TextField) {
         textField.textProperty().addListener { _, _, newValue ->
             textField.text = newValue
@@ -104,5 +114,73 @@ class OcMockController {
     private fun alertMessage() {
         val alert = Alert(ERROR, "Inserire indirizzo!", ButtonType.CANCEL)
         alert.showAndWait()
+    }
+
+    private fun getData(): JsonObject {
+        when {
+            dispatchCode.text.isNotEmpty() &&
+                    dynamic.selectionModel.selectedItem != " " &&
+                    !secondary.isSelected &&
+                    primary.isSelected &&
+                    patientsNumber.value != 0
+                    && notes.text.isNotEmpty() ->
+                return json {
+                    obj(
+                            CALL_TIME to ocCall.toString(),
+                            ADDRESS to address.text,
+                            DISPATCH_CODE to dispatchCode.text,
+                            DYNAMIC to dynamic.selectionModel.selectedItem,
+                            SECONDARY to secondary.isSelected,
+                            PATIENT_NUMBER to patientsNumber.value,
+                            NOTES to notes.text
+                    )
+            }
+            dispatchCode.text.isEmpty() &&
+                    dynamic.selectionModel.selectedItem == " " &&
+                    !secondary.isSelected &&
+                    primary.isSelected &&
+                    patientsNumber.value == 0
+                    && notes.text.isEmpty() ->
+                return json {
+                    obj(
+                            CALL_TIME to ocCall.toString(),
+                            ADDRESS to address.text,
+                            SECONDARY to secondary.isSelected
+                    )
+                }
+            dispatchCode.text.isNotEmpty() &&
+                    dynamic.selectionModel.selectedItem != " " &&
+                    !secondary.isSelected &&
+                    primary.isSelected &&
+                    patientsNumber.value != 0
+                    && notes.text.isEmpty() ->
+                return json {
+                    obj(
+                            CALL_TIME to ocCall.toString(),
+                            ADDRESS to address.text,
+                            DISPATCH_CODE to dispatchCode.text,
+                            DYNAMIC to dynamic.selectionModel.selectedItem,
+                            SECONDARY to secondary.isSelected,
+                            PATIENT_NUMBER to patientsNumber.value
+                    )
+                }
+            else ->
+                return json {
+                    obj(
+                            CALL_TIME to ocCall.toString(),
+                            ADDRESS to address.text
+                    )
+                }
+        }
+    }
+
+    private companion object {
+        private const val CALL_TIME = "callTime"
+        private const val ADDRESS = "address"
+        private const val DISPATCH_CODE = "dispatchCode"
+        private const val DYNAMIC = "dynamic"
+        private const val SECONDARY = "secondary"
+        private const val PATIENT_NUMBER = "patientsNumber"
+        private const val NOTES = "notes"
     }
 }

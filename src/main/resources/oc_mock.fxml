@@ -32,7 +32,7 @@
        <CheckBox fx:id="elimike" layoutX="346.0" layoutY="327.0" mnemonicParsing="false" text="Elimike" />
        <CheckBox fx:id="ambulance" layoutX="451.0" layoutY="327.0" mnemonicParsing="false" text="Ambulanza" />
        <Label layoutX="69.0" layoutY="277.0" text="Numero pazienti" />
-       <Spinner fx:id="patientsNumber" layoutX="213.0" layoutY="272.0" max="100" min="1" prefHeight="31.0" prefWidth="341.0" />
+       <Spinner fx:id="patientsNumber" layoutX="213.0" layoutY="272.0" max="100" min="0" prefHeight="31.0" prefWidth="341.0" />
        <Label layoutX="69.0" layoutY="407.0" text="Note" />
        <TextArea fx:id="notes" layoutX="213.0" layoutY="378.0" prefHeight="78.0" prefWidth="341.0" />
        <Button fx:id="confirmButton" layoutX="222.0" layoutY="474.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="163.0" text="Conferma evento" />

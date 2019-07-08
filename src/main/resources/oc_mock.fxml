@@ -19,9 +19,9 @@
             <Font size="36.0" />
          </font></Text>
        <Label layoutX="69.0" layoutY="83.0" text="Indirizzo" />
-       <TextField fx:id="address" layoutX="213.0" layoutY="135.0" prefHeight="31.0" prefWidth="341.0" />
+       <TextField fx:id="address" layoutX="213.0" layoutY="78.0" prefHeight="31.0" prefWidth="341.0" />
        <Label layoutX="69.0" layoutY="140.0" text="Codice invio" />
-       <TextField fx:id="dispatchCode" layoutX="213.0" layoutY="78.0" prefHeight="31.0" prefWidth="341.0" />
+       <TextField fx:id="dispatchCode" layoutX="213.0" layoutY="135.0" prefHeight="31.0" prefWidth="341.0" />
        <Label layoutX="69.0" layoutY="189.0" text="Dinamica" />
        <ComboBox fx:id="dynamic" layoutX="213.0" layoutY="184.0" prefHeight="31.0" prefWidth="341.0" />
        <Label layoutX="69.0" layoutY="235.0" text="Tipo intervento" />

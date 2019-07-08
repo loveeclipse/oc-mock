@@ -4,5 +4,5 @@ import javafx.fxml.FXML
 import java.awt.TextField
 
 class OcMock {
-    //@FXML val address: TextField
+    //@FXML lateinit var address: TextField
 }

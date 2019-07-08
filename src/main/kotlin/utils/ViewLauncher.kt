@@ -13,7 +13,7 @@ import javafx.stage.Stage
 
 
 
-class ViewLuncher: Application() {
+class ViewLauncher: Application() {
 
     override fun start(primaryStage: Stage) {
         val loader = FXMLLoader()

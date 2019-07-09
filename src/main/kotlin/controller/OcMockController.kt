@@ -18,8 +18,10 @@ import java.time.LocalDateTime
 import javafx.scene.control.ButtonType
 import javafx.scene.control.Alert.AlertType.ERROR
 import javafx.scene.control.Alert
-import utils.DiscoveryData.DISCOVERY_GET_SERVICE
+
+import utils.DiscoveryData.EVENTS_LOCATION
 import utils.DiscoveryData.HOST
+import utils.DiscoveryData.MISSION_LOCATION
 import utils.DiscoveryData.PORT
 
 class OcMockController {
@@ -39,6 +41,7 @@ class OcMockController {
     private lateinit var ocCall: LocalDateTime
     private var client = WebClient.create(Vertx.vertx())
     private var isFirst = true
+    private lateinit var eventId: String
 
     fun initialization() {
         dynamic.items.addAll(" ", "Pedone investito", "Ciclista investito", "Motociclista", "Macchina-Moto",
@@ -57,38 +60,44 @@ class OcMockController {
                     alertMessage()
                 isFirst ->
                     client
-                            .get(PORT, HOST, DISCOVERY_GET_SERVICE)
-                            .send { findServiceLocation ->
-                                if (findServiceLocation.succeeded()) {
-                                    val response = findServiceLocation.result().body()
-                                    val document = getData()
+                            .get(PORT, HOST, EVENTS_LOCATION)
+                            .send { findEventsLocation ->
+                                if (findEventsLocation.succeeded()) {
+                                    val eventLocationResponse = findEventsLocation.result().body()
+                                    val eventDocument = getEventData()
                                     client
-                                            .patchAbs(response.toString())
-                                            .sendJsonObject(document) { insertOperation ->
+                                            .postAbs("$eventLocationResponse/events")
+                                            .sendJsonObject(eventDocument) { insertOperation ->
                                                 when {
-                                                    insertOperation.succeeded() ->
+                                                    insertOperation.succeeded() -> {
+                                                        eventId = insertOperation.result().bodyAsString()
                                                         isFirst = false
+                                                        client
+                                                                .get(PORT, HOST, MISSION_LOCATION)
+                                                                .send { findMissionsLocation ->
+                                                                    if (findMissionsLocation.succeeded()) {
+                                                                        val missionResponse = findMissionsLocation.result().body()
+                                                                        val missionDocument = getMissionData()
+                                                                        client
+                                                                                .postAbs("$missionResponse/missions")
+                                                                                .sendJsonObject(missionDocument) {}
+                                                                    }
+                                                                }
+                                                    }
                                                 }
                                             }
                                 }
                             }
                 else ->
                     client
-                            .get(PORT, HOST, DISCOVERY_GET_SERVICE)
+                            .get(PORT, HOST, EVENTS_LOCATION)
                             .send { findServiceLocation ->
                                 if (findServiceLocation.succeeded()) {
                                     val response = findServiceLocation.result().body()
-                                    val document = getData()
+                                    val document = getEventData()
                                     client
-                                            .postAbs(response.toString())
-                                            .sendJsonObject(document) { insertOperation ->
-                                                when {
-                                                    insertOperation.succeeded() ->
-                                                        println("OK")
-                                                    else ->
-                                                        println("Error: ${insertOperation.cause()}")
-                                                }
-                                            }
+                                            .patchAbs("$response/events/eventId")
+                                            .sendJsonObject(document) {}
                                 }
                             }
             }
@@ -116,7 +125,7 @@ class OcMockController {
         alert.showAndWait()
     }
 
-    private fun getData(): JsonObject {
+    private fun getEventData(): JsonObject {
         when {
             dispatchCode.text.isNotEmpty() &&
                     dynamic.selectionModel.selectedItem != " " &&
@@ -135,12 +144,7 @@ class OcMockController {
                             NOTES to notes.text
                     )
             }
-            dispatchCode.text.isEmpty() &&
-                    dynamic.selectionModel.selectedItem == " " &&
-                    !secondary.isSelected &&
-                    primary.isSelected &&
-                    patientsNumber.value == 0
-                    && notes.text.isEmpty() ->
+            else ->
                 return json {
                     obj(
                             CALL_TIME to ocCall.toString(),
@@ -148,29 +152,15 @@ class OcMockController {
                             SECONDARY to secondary.isSelected
                     )
                 }
-            dispatchCode.text.isNotEmpty() &&
-                    dynamic.selectionModel.selectedItem != " " &&
-                    !secondary.isSelected &&
-                    primary.isSelected &&
-                    patientsNumber.value != 0
-                    && notes.text.isEmpty() ->
-                return json {
-                    obj(
-                            CALL_TIME to ocCall.toString(),
-                            ADDRESS to address.text,
-                            DISPATCH_CODE to dispatchCode.text,
-                            DYNAMIC to dynamic.selectionModel.selectedItem,
-                            SECONDARY to secondary.isSelected,
-                            PATIENT_NUMBER to patientsNumber.value
-                    )
-                }
-            else ->
-                return json {
-                    obj(
-                            CALL_TIME to ocCall.toString(),
-                            ADDRESS to address.text
-                    )
-                }
+        }
+    }
+
+    private fun getMissionData(): JsonObject {
+        return json {
+            json { obj(
+                    EVENT_ID to eventId,
+                    VEHICLE to hotelBravoChopper.text
+            ) }
         }
     }
 
@@ -182,5 +172,7 @@ class OcMockController {
         private const val SECONDARY = "secondary"
         private const val PATIENT_NUMBER = "patientsNumber"
         private const val NOTES = "notes"
+        private const val EVENT_ID = "eventId"
+        private const val VEHICLE = "vehicle"
     }
 }

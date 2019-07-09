@@ -26,7 +26,7 @@
        <ComboBox fx:id="dynamic" layoutX="213.0" layoutY="184.0" prefHeight="31.0" prefWidth="341.0" />
        <Label layoutX="69.0" layoutY="235.0" text="Tipo intervento" />
        <RadioButton fx:id="primary" layoutX="213.0" layoutY="235.0" mnemonicParsing="false" text="Primario" />
-       <RadioButton fx:id="secondary" layoutX="344.0" layoutY="235.0" mnemonicParsing="false" text="Seconsario" />
+       <RadioButton fx:id="secondary" layoutX="344.0" layoutY="235.0" mnemonicParsing="false" text="Secondario" />
        <Label layoutX="69.0" layoutY="327.0" text="Mezzi soccorso" />
        <CheckBox fx:id="hotelBravoChopper" layoutX="213.0" layoutY="327.0" mnemonicParsing="false" text="HotelBravo" />
        <CheckBox fx:id="elimike" layoutX="346.0" layoutY="327.0" mnemonicParsing="false" text="Elimike" />

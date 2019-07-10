@@ -3,6 +3,7 @@ package controller
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.ext.web.client.WebClient
+import io.vertx.ext.web.client.WebClientOptions
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 import javafx.fxml.FXML
@@ -39,7 +40,7 @@ class OcMockController {
 
     private val radioButtonGroup = ToggleGroup()
     private lateinit var ocCall: LocalDateTime
-    private var client = WebClient.create(Vertx.vertx())
+    private var client = WebClient.create(Vertx.vertx(), WebClientOptions().setSsl(true))
     private var isFirst = true
     private lateinit var eventId: String
 

@@ -19,9 +19,9 @@ import javafx.scene.control.ButtonType
 import javafx.scene.control.Alert.AlertType.ERROR
 import javafx.scene.control.Alert
 
-import utils.DiscoveryData.EVENTS_LOCATION
+import utils.DiscoveryData.REQUEST_EVENTS_LOCATION
 import utils.DiscoveryData.HOST
-import utils.DiscoveryData.MISSION_LOCATION
+import utils.DiscoveryData.REQUEST_MISSION_LOCATION
 import utils.DiscoveryData.PORT
 
 class OcMockController {
@@ -60,7 +60,7 @@ class OcMockController {
                     alertMessage()
                 isFirst ->
                     client
-                            .get(PORT, HOST, EVENTS_LOCATION)
+                            .get(PORT, HOST, REQUEST_EVENTS_LOCATION)
                             .send { findEventsLocation ->
                                 if (findEventsLocation.succeeded()) {
                                     val eventLocationResponse = findEventsLocation.result().body()
@@ -73,7 +73,7 @@ class OcMockController {
                                                         eventId = insertOperation.result().bodyAsString()
                                                         isFirst = false
                                                         client
-                                                                .get(PORT, HOST, MISSION_LOCATION)
+                                                                .get(PORT, HOST, REQUEST_MISSION_LOCATION)
                                                                 .send { findMissionsLocation ->
                                                                     if (findMissionsLocation.succeeded()) {
                                                                         val missionResponse = findMissionsLocation.result().body()
@@ -90,13 +90,13 @@ class OcMockController {
                             }
                 else ->
                     client
-                            .get(PORT, HOST, EVENTS_LOCATION)
+                            .get(PORT, HOST, REQUEST_EVENTS_LOCATION)
                             .send { findServiceLocation ->
                                 if (findServiceLocation.succeeded()) {
                                     val response = findServiceLocation.result().body()
                                     val document = getEventData()
                                     client
-                                            .patchAbs("$response/events/eventId")
+                                            .patchAbs("$response/events/$eventId")
                                             .sendJsonObject(document) {}
                                 }
                             }

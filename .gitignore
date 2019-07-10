@@ -13,6 +13,9 @@
 # Java class files
 *.class
 
+# Jars directory
+production/
+
 # Generated files
 bin/
 gen/

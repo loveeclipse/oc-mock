@@ -7,10 +7,10 @@ import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
-import utils.ocWindow.PATH
-import utils.ocWindow.TITLE
-import utils.ocWindow.WIDTH
-import utils.ocWindow.HEIGHT
+import utils.OcWindow.PATH
+import utils.OcWindow.TITLE
+import utils.OcWindow.WIDTH
+import utils.OcWindow.HEIGHT
 import javafx.stage.Stage
 
 class ViewLauncher : Application() {

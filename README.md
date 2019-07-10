@@ -16,7 +16,8 @@ Kotlin 1.3 https://kotlinlang.org/
 It's necessary that the discovery, event and mission services are active.
 
 ## Run
-
+To run the project it's sufficient run mock:
+- JAR: run the jar or by command line: `java -jar pc-18-preh-oc-mock-1.0-all.jar`
 
 ## Documentation and coverage reports 
 

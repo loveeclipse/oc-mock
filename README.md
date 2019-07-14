@@ -17,3 +17,9 @@ To run the project it's sufficient run mock:
 
 ## Downloads and project report 
 Downloads and releases: https://github.com/loveeclipse/pc-18-preh-oc-mock/releases
+
+## Team members
+Nicola Atti (nicola.atti@studio.unibo.it)  
+Marco Canducci (marco.canducci@studio.unibo.it)  
+Chiara Volonnino (chiara.volonnino@studio.unibo.it)  
+Daniele Schiavi (daniele.schiavi@studio.unibo.it)  

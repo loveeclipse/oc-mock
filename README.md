@@ -1,4 +1,4 @@
-# Pre-Hospital Operations Center Mock
+# Pre-Hospital
 
 ## Project for Pervasive Computing
 https://www.unibo.it/en/teaching/course-unit-catalogue/course-unit/2018/412647

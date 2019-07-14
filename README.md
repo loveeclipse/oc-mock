@@ -1,25 +1,18 @@
 # Pre-Hospital Operations Center Mock
-Project for the course of "Pervsive Computing" AA.2018/2019
 
-In this repository it is possible to find the implementation of the Operations Center mock. This is composed of a simple graphic interface that allows you to interact with the Event's Digital Twin, in order to populate it with useful data and with, the Mission's Digital Twin in order to create it.
-
-## Continuous integration 
-[![Build Status](https://travis-ci.org/loveeclipse/pc-18-preh-oc-mock.svg?branch=master)](https://travis-ci.org/loveeclipse/pc-18-preh-oc-mock)
+## Project for Pervasive Computing
+https://www.unibo.it/en/teaching/course-unit-catalogue/course-unit/2018/412647
 
 ## Getting started
-### Prerequisites
+<Strong>Requirements</Strong>
 Java 1.8 https://www.java.com/it/download/faq/java8.xmln
 
-Kotlin 1.3 https://kotlinlang.org/
-
 ## Build
-It's necessary that the discovery, event and mission services are active.
+It's necessary that the pre-h back and is active.
 
 ## Run
 To run the project it's sufficient run mock:
 - JAR: run the jar or by command line: `java -jar pc-18-preh-oc-mock-1.0-all.jar`
 
-## Documentation and coverage reports 
-
-## Downloads and releases 
-Downloads and releases: 
+## Downloads and project report 
+Downloads and releases: https://github.com/loveeclipse/pc-18-preh-oc-mock/releases

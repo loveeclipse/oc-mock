@@ -1,4 +1,4 @@
-# Pre-Hospital Operations Center Mock
+# Pre-Hospital
 
 ## Project for Pervasive Computing
 https://www.unibo.it/en/teaching/course-unit-catalogue/course-unit/2018/412647
@@ -9,7 +9,7 @@ https://www.unibo.it/en/teaching/course-unit-catalogue/course-unit/2018/412647
 Java 1.8 https://www.java.com/it/download/faq/java8.xmln
 
 ## Build
-It's necessary that the pre-h back end is active.
+It's necessary that the pre-h back end is active: https://github.com/loveeclipse/pc-18-preh-backend
 
 ## Run
 To run the project it's sufficient run mock:
@@ -17,3 +17,9 @@ To run the project it's sufficient run mock:
 
 ## Downloads and project report 
 Downloads and releases: https://github.com/loveeclipse/pc-18-preh-oc-mock/releases
+
+## Team members
+Nicola Atti (nicola.atti@studio.unibo.it)  
+Marco Canducci (marco.canducci@studio.unibo.it)  
+Chiara Volonnino (chiara.volonnino@studio.unibo.it)  
+Daniele Schiavi (daniele.schiavi@studio.unibo.it)  

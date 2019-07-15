@@ -22,7 +22,7 @@ class ViewLauncher : Application() {
         val scene = Scene(rootParent, WIDTH.toDouble(), HEIGHT.toDouble())
         primaryStage.title = TITLE
         primaryStage.scene = scene
-        primaryStage.isResizable = false
+        primaryStage.isResizable = true
         primaryStage.onShown = EventHandler {
             controller.initialization()
         }
